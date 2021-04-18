@@ -1,0 +1,61 @@
+.container {
+    width: 1200px;
+    height: 900px;
+    border: 3px solid blue;
+    padding: 3em 3em 3em 3em;
+}
+#welcome-h1 {
+    display: flexbox;
+    align-items: center;
+    text-align: center;
+    color: rgb(13, 60, 148);
+    /* border: 3px solid darkgrey; */
+}
+#banner {
+    /* border: 3px solid darkgreen; */
+    display: flex;
+    justify-content: center;
+
+    /* justify-content: space-between; */
+    
+}
+.nameTitle {
+    /* margin-top: 2rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6em;
+    width: 6em;
+    /* padding: 4rem 4rem 4rem 4rem; */
+    background-color: rgb(202, 215, 228);
+    border-radius: 50%;
+    color: rgb(51, 66, 199);
+}
+.sub-container {
+    /* border: 3px solid black; */
+    display: flex;
+    justify-content: flex-start;
+}
+#spcial-offers {
+    /* border: 3px solid sandybrown; */
+    width: 30%;
+}
+#full-description {
+    /* border: 5px solid rgb(118, 158, 149); */
+    width: 70%;
+}
+
+#footer {
+    /* border: 3px solid navy; */
+    background-color: rgb(185, 222, 243);
+}
+.spcial-offers {
+    /* width: 10em; */
+    /* height: 3em; */
+    /* background-color: lightpink; */
+    margin-left: 2px;
+    display: flex;
+    /* justify-content: center; */
+    /* padding-top: 5px; */
+    /* text-align: center; */
+}
