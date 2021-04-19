@@ -46,11 +46,6 @@ function addToSubContainer(food) {
     foodCom.innerText = food.comment
     
 
-    
-    
-   
-
-
     if (food.review == 0) {
         foodRev.innerHTML = "&#9734";
         foodRev.style.fontSize = "2rem";
@@ -66,12 +61,16 @@ function addToSubContainer(food) {
     }   else {
         foodRev.innerHTML = "<p class='star'>⭐⭐⭐⭐⭐</p>";
     }
+
+    //getID
+    let foodId = food.id;
+    // console.log(foodId);
     
     const foodInfo = document.querySelector('#food-info')
     foodInfo.innerText = ""
     foodInfo.append(foodName, foodImage, foodCal, foodRev, foodCom)
-
-
+    
+    
     const form = document.createElement('form')
     const review = document.createElement('input')
     const rating = document.createElement('input')
@@ -80,7 +79,7 @@ function addToSubContainer(food) {
     review.name = "comment";
     review.id = "reviewId";
     review.type = "text";
-
+    
     rating.name = "rating";
     rating.id = "ratingId"
     rating.type = "text";
@@ -88,19 +87,49 @@ function addToSubContainer(food) {
     
     form.appendChild(review);
     form.appendChild(submit);
-
-    console.log(review, submit);
+    
+    // console.log(review, submit);
     
     form.addEventListener("submit", e => {
         e.preventDefault();
-        //Now your turn to get the data. target. New object
-        console.log(e.target.reviewId.value);
+        
+        const newReviewId = e.target.reviewId.value;
+        
+        let tmpString = food.comment.toString();
+        tmpString += ", " + newReviewId;
+        let tmpArray = new Array();
+        tmpArray = tmpString.split(",")
+        console.log(tmpArray);
+
+        let tmpObj = {
+            "id": food.id,
+            "name": food.name,
+            "image": food.image,
+            "calories": food.calories,
+            "review": food.review.id,
+            "comment": tmpArray
+          }
+
+        const reqObj = {
+            headers: {'Content-Type': "application/json"},
+            method: "PATCH",
+            body: JSON.stringify(tmpObj)
+        }
+        fetch(BASE_URL+ foodId, reqObj)
+        .then(r => r.json())
+        .then(
+            console.log
+        )
+        
+        e.target.reset();
+        
+        
         
     })
-
     
-
-
+    
+    
+    
     document.querySelector('#form-review').appendChild(form)
     
 
