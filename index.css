@@ -45,3 +45,6 @@ body {
     display: flex;
     justify-content: flex-start;
 }
+.checked {
+    color: orange;
+  }

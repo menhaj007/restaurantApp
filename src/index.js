@@ -42,13 +42,29 @@ function addToSubContainer(food) {
     foodImage.src = food.image 
     foodName.innerText = food.name
     foodCal.innerText = food.calories
-    foodRev.innerText = food.review
+    if (food.review == 0) {
+        foodRev.innerHTML = "&#9734";
+        foodRev.style.fontSize = "2rem";
+        foodRev.style.color = "gray";
+    
+
+    } else if (food.review ==1) {
+        foodRev.innerHTML = "<p class='star'>⭐</p>";
+    } else if (food.review == 2) {
+        foodRev.innerHTML = "<p class='star'>⭐⭐</p>";
+    } else if (food.review == 3) {
+        foodRev.innerHTML = "<p class='star'>⭐⭐⭐</p>";
+    } else if (food.review == 4) {
+        foodRev.innerHTML = "<p class='star'>⭐⭐⭐⭐</p>";
+    }   else {
+        foodRev.innerHTML = "<p class='star'>⭐⭐⭐⭐⭐</p>";
+    }
     
     const foodInfo = document.querySelector('#food-info')
     foodInfo.innerText = ""
     foodInfo.append(foodName, foodImage, foodCal, foodRev)
 
-
+    
    
 
 }
