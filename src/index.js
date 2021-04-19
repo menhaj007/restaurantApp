@@ -11,29 +11,44 @@ function fetchFoods() {
 }
 
 function addFoods(food) {
-    const foodBanner = document.createElement('h4')
-    foodBanner.className = "food-name"
-    foodBanner.innerText = food.name
+    const foodItem = document.createElement('h4')
+    foodItem.className = "food-name"
+    foodItem.innerText = food.name
+    foodItem.id = food.id
+    // console.log(foodItem);
     
-    document.querySelector('#banner').appendChild(foodBanner)
+    document.querySelector('.banner').appendChild(foodItem)
 
 }
 displayFood();
 function displayFood() {
-    document.querySelector('#banner').addEventListener('click', (e) => {
-        console.log(e.target.value);
-        const foodImg = document.createElement('img')
-        // foodImg.src = food.image 
-
-        const foodName = document.createElement('h4')
-        // foodName.innerText = food.name
-
-        const foodCal = document.createElement('h4')
-        // foodCal.innerText = food.calories
-
-        const foodRev = document.createElement('h4')
-        // foodRev.innerText = food.review
-
-        document.querySelector('#food-info').append(foodImg, foodName, foodCal, foodRev)
+    document.querySelector('.banner').addEventListener('click', (e) => {
+         const foodId = e.target.id
+        //  console.log(foodId, e.target)
+        ///url+id
+        fetch(BASE_URL+foodId)
+        .then(res => res.json())
+        .then(addToSubContainer)
+        
     })
+}
+
+function addToSubContainer(food) {
+    const foodName = document.createElement('h4')
+    const foodImage = document.createElement('img')
+    const foodCal = document.createElement('h4')
+    const foodRev = document.createElement('h4')
+        
+    foodImage.src = food.image 
+    foodName.innerText = food.name
+    foodCal.innerText = food.calories
+    foodRev.innerText = food.review
+    
+    const foodInfo = document.querySelector('#food-info')
+    foodInfo.innerText = ""
+    foodInfo.append(foodName, foodImage, foodCal, foodRev)
+
+
+   
+
 }

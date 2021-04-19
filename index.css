@@ -21,7 +21,7 @@ body {
     color: rgb(13, 60, 148);
     /* border: 3px solid darkgrey; */
 }
-#banner {
+.banner {
     display: flex;
     justify-content: center;
 
