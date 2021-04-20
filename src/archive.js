@@ -92,6 +92,8 @@ function addFoodToFoodContainer(food) {
 // handleForm();
 function handleForm(id) {
     const foodId =  id;
+    
+
 
     const form = document.createElement('form')
     const review = document.createElement('input')
@@ -157,14 +159,4 @@ function saveToDB(foodId, newValue, oldData) {
             .then(
                 addFoodToFoodContainer
             );
-}
-
-function testFormRating() {
-    const form = document.querySelector('form');
-    form.addEventListener('submit', event => {
-  const formData = new FormData(event.target);
-  const rating = formData.get('rating');
-  console.log(rating);
-  event.preventDefault();
-});
 }
