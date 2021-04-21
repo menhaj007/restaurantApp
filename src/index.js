@@ -3,6 +3,7 @@ const BASE_URL = "http://localhost:3000/menu/";
 const displayForm = document.getElementById("form-comment");
 // displayForm.style.display = "none";
 fetchFoods()
+renderFood();
 //test
 
 
@@ -22,7 +23,7 @@ function addFoodToBanner(food) {
     document.querySelector('.banner').appendChild(foodItem)
 
 }
-renderFood();
+
 function renderFood() {
     document.querySelector('.banner').addEventListener('click', (e) => {
          const foodId = e.target.id
@@ -30,8 +31,10 @@ function renderFood() {
         //  console.log(foodId, e.target)
         document.querySelector(".food-container").id = foodId;
         document.querySelector("#form-review").innerText = "";
-        handleForm(foodId)
-        ///url+id
+        document.querySelector("#form-rating").innerText = "";
+        handleForm(foodId);
+        
+        handleRatingForm(foodId);
        
         fetch(BASE_URL+foodId)
         .then(res => res.json())
@@ -39,7 +42,7 @@ function renderFood() {
         
     })
 }
-// let currentObj = 0;
+
 function addFoodToFoodContainer(food) {
     const foodName = document.createElement('h3')
     const foodImage = document.createElement('img')
@@ -78,18 +81,16 @@ function addFoodToFoodContainer(food) {
     }   else {
         foodRev.innerHTML = "<p class='star'>⭐⭐⭐⭐⭐</p>";
     }
+    
 
-    //getID
-    currentObj= food.id;
-    // console.log(foodId);
     
     const foodInfo = document.querySelector('#food-info')
     foodInfo.innerText = ""
     foodInfo.append(foodName, foodImage, foodCal, foodRev, foodCom);
-    
+    // handleRatingForm()
+   
 }
 
-// handleForm();
 function handleForm(id) {
     const foodId =  id;
 
@@ -127,15 +128,15 @@ function handleForm(id) {
     
 }
 
-
-
 function saveToDB(foodId, newValue, oldData) {
 
-        let tmpString = oldData.comment.toString();
-        tmpString += ", " + newValue;
-        let tmpArray = new Array();
-        tmpArray = tmpString.split(",")
-        // console.log(tmpArray);
+        // let tmpString = oldData.comment.toString();
+        // tmpString += ", " + newValue;
+        // let tmpArray = new Array();
+        // tmpArray = tmpString.split(",")
+        // console.log(tmpArray); 
+         
+        oldData.comment.push(newValue);
 
 
     tmpObj = {
@@ -143,8 +144,8 @@ function saveToDB(foodId, newValue, oldData) {
                 "name": oldData.name,
                 "image": oldData.image,
                 "calories": oldData.calories,
-                "review": oldData.review.id,
-                "comment": tmpArray
+                "review": oldData.review, ///Note oldData.review.id
+                "comment": oldData.comment
               }
 
     const reqObj = {
@@ -159,12 +160,75 @@ function saveToDB(foodId, newValue, oldData) {
             );
 }
 
-function testFormRating() {
-    const form = document.querySelector('form');
-    form.addEventListener('submit', event => {
-  const formData = new FormData(event.target);
-  const rating = formData.get('rating');
-  console.log(rating);
-  event.preventDefault();
-});
+
+function handleRatingForm(id) {
+    const formHTML = document.createElement("form");
+    formHTML.innerHTML = 
+    `<form>
+        <input type="radio" class="star-input" name="rating" id="star-1" value="1">
+        <label for="star-1" class="star"><i class="fas fa-star"></i></label>
+        <input type="radio" class="star-input" name="rating" id="star-2" value="2">
+        <label for="star-2" class="star"><i class="fas fa-star"></i></label>
+        <input type="radio" class="star-input" name="rating" id="star-3" value="3">
+        <label for="star-3" class="star"><i class="fas fa-star"></i></label>
+        <input type="radio" class="star-input" name="rating" id="star-4" value="4">
+        <label for="star-4" class="star"><i class="fas fa-star"></i></label>
+        <input type="radio" class="star-input" name="rating" id="star-5" value="5" checked>
+        <label for="star-5" class="star"><i class="fas fa-star"></i></label>
+        <button type="submit">Send</button>
+    </form>`;
+
+    document.querySelector("#form-rating").appendChild(formHTML)
+        formHTML.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const rating = formData.get('rating');
+        // console.log(rating);
+
+        fetch(BASE_URL+id)
+        .then(res => res.json())
+        .then(data =>  {
+            saveToDbRatings(id,rating, data);
+            // console.log
+        })
+
+    });
+    
+}
+
+function saveToDbRatings(foodId, newValue, oldData) {
+     
+    // let a = parseInt(newValue);
+    // let b = parseInt(oldData.review)
+    // let result = a + b;
+    // oldData.review = result;
+    // [1,2,3,4] / arr.length
+
+    // let addNewValue = parseInt(newValue) + parseInt(oldData.review)
+    // oldData.review = addNewValue;
+    // console.log("New added value: ",addNewValue, "old", oldData.review, "new", newValue);
+    oldData.review = newValue; // reseting new value. newValue
+
+
+tmpObj = {
+            "id": oldData.id,
+            "name": oldData.name,
+            "image": oldData.image,
+            "calories": oldData.calories,
+            "review": oldData.review,
+            "comment": oldData.review
+          }
+
+const reqObj = {
+            headers: {'Content-Type': "application/json"},
+            method: "PATCH",
+            body: JSON.stringify(tmpObj)
+        }
+fetch(BASE_URL+ foodId, reqObj)
+        .then(r => r.json())
+        .then(
+            addFoodToFoodContainer
+            // console.log
+        );
 }
