@@ -3,32 +3,24 @@
     {
       "id": 1,
       "name": "Pizza",
-      "image": "./src/burger.png",
+      "image": "https://unsplash.com/photos/MqT0asuoIcU",
       "calories": 600,
       "review": [
         8,
         1,
         2,
         2,
-        7
+        8
       ],
       "comment": [
         "I have an amazing experience here",
-        "Best Ribs in the country",
-        "hi",
-        "dssdd",
-        "Mine",
-        "ee",
-        "3",
-        "Hello world",
-        "h",
-        "The lates and greating"
+        "Best Ribs in the country"
       ]
     },
     {
       "id": 2,
       "name": "Cheese Burger",
-      "image": "./src/burger.png",
+      "image": "https://unsplash.com/photos/sc5sTPMrVfk",
       "calories": 650,
       "review": [
         2,
@@ -47,7 +39,7 @@
     {
       "id": 3,
       "name": "12oz Steak",
-      "image": "./src/burger.png",
+      "image": "https://unsplash.com/photos/M0lUxgLnlfk",
       "calories": 800,
       "review": [
         5,
@@ -58,20 +50,13 @@
       ],
       "comment": [
         "I have an amazing experience here",
-        "Best Ribs in the country",
-        "hello",
-        "hi",
-        "my",
-        "HI",
-        "99",
-        "Texas",
-        "3"
+        "Best Ribs in the country"
       ]
     },
     {
       "id": 4,
       "name": "Rack of Ribs",
-      "image": "./src/burger.png",
+      "image": "https://unsplash.com/photos/kctt4tL1dkE",
       "calories": 900,
       "review": [
         0,
@@ -88,7 +73,7 @@
     {
       "id": 5,
       "name": "Ceasar Salad",
-      "image": "./src/burger.png",
+      "image": "https://unsplash.com/photos/oj2hBf5TOFM",
       "calories": 450,
       "review": [
         0,
@@ -105,7 +90,7 @@
     {
       "id": 6,
       "name": "Lamb Chops",
-      "image": "./src/burger.png",
+      "image": "https://unsplash.com/photos/9ZJOs9hmuKs",
       "calories": 850,
       "review": [
         1,

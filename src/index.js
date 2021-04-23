@@ -224,7 +224,7 @@ function handleRatingForm(id) {
         <label for="star-4" class="star"><i class="fas fa-star"></i></label>
         <input type="radio" class="star-input" name="rating" id="star-5" value="5" checked>
         <label for="star-5" class="star"><i class="fas fa-star"></i></label>
-        <button type="submit">Send</button>
+        <button type="submit">Submit Rating</button>
     </form>`;
 
     document.querySelector("#form-rating").appendChild(formHTML)
