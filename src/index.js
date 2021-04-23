@@ -27,10 +27,11 @@ function addFoodToBanner(food) {
         // foodItem.style.backgroundImage = "url('sunorwind-Z4CvBOpOi6w-unsplash.jpg')";
     } else if (food.name =="Ceasar Salad") {
         foodItem.style.backgroundImage = "url('rachel-park-hrlvr2ZlUNk-unsplash.jpg')"; 
-    } else if (food.name == "Rack of Ribs") {
-        foodItem.style.backgroundImage = "url('sean-stone-0hOHNA3M6Ds-unsplash.jpg')";  
-    } else if (food.name == "Lamb Chops") {
-        foodItem.style.backgroundImage = "url('sam-carter-GHOiyov2TSQ-unsplash.jpg')";  
+    } else if (food.name == "Pho") {
+        foodItem.style.backgroundImage = "url('https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1934&q=80')";  
+    } else if (food.name == "Banh Mi") {
+        foodItem.style.backgroundImage = "url('https://images.unsplash.com/photo-1599719455360-ff0be7c4dd06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2232&q=80')";  
+        // foodItem.style.backgroundImage = "url('sam-carter-GHOiyov2TSQ-unsplash.jpg')";  
     }
     foodItem.id = food.id
     // console.log(foodItem);
@@ -93,13 +94,17 @@ function addFoodToFoodContainer(food) {
     // document.getElementById("button").appendChild(btn);
     // // console.log(domBtn);
 
-    var result = 0;
-    var likes = 0;
+    let result = 0;
+    let likes = 0;
     for (let i = 0; i < 5; i++) {
         result += (i+1.0) * food.review[i];
         likes += food.review[i];
-
     }
+    // [50 *1, 30 * 2, 90 * 3, 40 * 4, 30 * 5] => index => 0,1,2,3,4
+    // i * review[i] . 0 + 1 = 50 * 1, 30
+    //total / 150 number of people
+    //product (50+ 60 + 270 + 160+ 150) / 240 number of likes  
+    
     let finalResult = result/likes;
     // console.log("res",finalResult);
 
@@ -185,7 +190,7 @@ function saveToDB(foodId, newValue, oldData) {
         // tmpArray = tmpString.split(",")
         // console.log(tmpArray); 
          
-        oldData.comment.push(newValue);
+        oldData.comment.push(newValue); //it references. 
 
 
     tmpObj = {
