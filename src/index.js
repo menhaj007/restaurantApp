@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:3000/menu/";
 //const showForm = false; // c
-const displayForm = document.getElementById("form-comment");
+// const displayForm = document.getElementById("form-comment");
 // displayForm.style.display = "none";
 fetchFoods()
 renderFood();
@@ -14,9 +14,24 @@ function fetchFoods() {
 }
 
 function addFoodToBanner(food) {
+    const foodName = document.querySelector(".food-name");
     const foodItem = document.createElement('h4')
     foodItem.className = "food-name"
-    foodItem.innerText = food.name
+    foodItem.innerText = food.name    
+    if (food.name == "Pizza") {
+        foodItem.style.backgroundImage = "url('likemeat-CbNAuxSZTFo-unsplash.jpg')";
+    } else if (food.name =="Cheese Burger" ) {
+        foodItem.style.backgroundImage = "url('likemeat-NxIcsLJbACU-unsplash.jpg')";
+    } else if (food.name =="12oz Steak") {
+        foodItem.style.backgroundImage = "url('loija-nguyen-NYBnDWeOX2c-unsplash.jpg')";
+        // foodItem.style.backgroundImage = "url('sunorwind-Z4CvBOpOi6w-unsplash.jpg')";
+    } else if (food.name =="Ceasar Salad") {
+        foodItem.style.backgroundImage = "url('rachel-park-hrlvr2ZlUNk-unsplash.jpg')"; 
+    } else if (food.name == "Rack of Ribs") {
+        foodItem.style.backgroundImage = "url('sean-stone-0hOHNA3M6Ds-unsplash.jpg')";  
+    } else if (food.name == "Lamb Chops") {
+        foodItem.style.backgroundImage = "url('sam-carter-GHOiyov2TSQ-unsplash.jpg')";  
+    }
     foodItem.id = food.id
     // console.log(foodItem);
     
@@ -31,9 +46,9 @@ function renderFood() {
         //  console.log(foodId, e.target)
         document.querySelector(".food-container").id = foodId;
         document.querySelector("#form-review").innerText = "";
-        document.querySelector("#form-rating").innerText = "";
         handleForm(foodId);
         
+        document.querySelector("#form-rating").innerText = "";
         handleRatingForm(foodId);
        
         fetch(BASE_URL+foodId)
@@ -44,18 +59,30 @@ function renderFood() {
 }
 
 function addFoodToFoodContainer(food) {
-    const foodName = document.createElement('h3')
+    const foodName = document.createElement('h2')
     const foodImage = document.createElement('img')
-    const foodCal = document.createElement('h4')
+    const foodCal = document.createElement('h5')
     const foodRev = document.createElement('h4')
-    const foodCom = document.createElement('h4')
+    const foodCom = document.createElement('p')
 
     // const btn = document.createElement("button");
         
     foodImage.src = food.image 
+    foodImage.className = "test";
+    
     foodName.innerText = food.name
-    foodCal.innerText = food.calories
-    foodCom.innerText = food.comment
+    foodCal.innerText = "Calories: " + food.calories;
+
+    let tmpString = food.comment.reverse().toString();
+    let tmpArr = new Array();
+    tmpArr = tmpString.split(",");
+    console.log(tmpArr);
+    tmpString= tmpArr.join("\n ");
+        
+         
+    
+    console.log(tmpString);
+    foodCom.innerText = tmpString;
 
     // btn.name = "button";
     // btn.type = "button";
@@ -66,26 +93,47 @@ function addFoodToFoodContainer(food) {
     // document.getElementById("button").appendChild(btn);
     // // console.log(domBtn);
 
-    if (food.review == 0) {
-        foodRev.innerHTML = "&#9734";
+    var result = 0;
+    var likes = 0;
+    for (let i = 0; i < 5; i++) {
+        result += (i+1.0) * food.review[i];
+        likes += food.review[i];
+
+    }
+    let finalResult = result/likes;
+    // console.log("res",finalResult);
+
+     if (finalResult >= 1.0 && finalResult < 2.0) {
+        foodRev.innerText = `Customer review
+            Average: ${finalResult.toFixed(2)} \nRating: ⭐`;
+        
+    } else if (finalResult >= 2.0  && finalResult < 3.0) {
+        foodRev.innerText = `Customer review
+            Average: ${finalResult.toFixed(2)} \nRating: ⭐⭐`;
+    } else if (finalResult >= 3.0  && finalResult < 4.0) {
+        foodRev.innerText = `Customer review
+            Average: ${finalResult.toFixed(2)} \nRating: ⭐⭐⭐`;
+    } else if (finalResult >= 4.0  && finalResult < 5.0) {
+        foodRev.innerText = `Customer review
+            Average: ${finalResult.toFixed(2)} \nRating: ⭐⭐⭐⭐`;
+    }   else if (finalResult >= 5.0 ){
+        foodRev.innerText = `Customer review
+            Average: ${finalResult.toFixed(2)} \nRating: ⭐⭐⭐⭐⭐`;
+    } else {
+        // console.log(finalResult);
+        foodRev.innerText = "&#9734";
         foodRev.style.fontSize = "2rem";
         foodRev.style.color = "gray";
-    } else if (food.review ==1) {
-        foodRev.innerHTML = "<p class='star'>⭐</p>";
-    } else if (food.review == 2) {
-        foodRev.innerHTML = "<p class='star'>⭐⭐</p>";
-    } else if (food.review == 3) {
-        foodRev.innerHTML = "<p class='star'>⭐⭐⭐</p>";
-    } else if (food.review == 4) {
-        foodRev.innerHTML = "<p class='star'>⭐⭐⭐⭐</p>";
-    }   else {
-        foodRev.innerHTML = "<p class='star'>⭐⭐⭐⭐⭐</p>";
     }
+    // console.log(finalResult);
+    
+    
+    
     
 
     
     const foodInfo = document.querySelector('#food-info')
-    foodInfo.innerText = ""
+    foodInfo.innerText = "";
     foodInfo.append(foodName, foodImage, foodCal, foodRev, foodCom);
     // handleRatingForm()
    
@@ -102,6 +150,7 @@ function handleForm(id) {
     review.name = "comment";
     review.id = "reviewId";
     review.type = "text";
+    review.placeholder = "Please write your review and hit the enter key to submit."
     
     rating.name = "rating";
     rating.id = "ratingId"
@@ -183,14 +232,16 @@ function handleRatingForm(id) {
             event.preventDefault();
 
             const formData = new FormData(event.target);
-            const rating = formData.get('rating');
-        // console.log(rating);
+            let rating = formData.get('rating');
+            rating = parseInt(rating, 10);
+        // console.log(typeof rating);
+        console.log(rating);
+            
 
         fetch(BASE_URL+id)
         .then(res => res.json())
         .then(data =>  {
             saveToDbRatings(id,rating, data);
-            // console.log
         })
 
     });
@@ -208,7 +259,51 @@ function saveToDbRatings(foodId, newValue, oldData) {
     // let addNewValue = parseInt(newValue) + parseInt(oldData.review)
     // oldData.review = addNewValue;
     // console.log("New added value: ",addNewValue, "old", oldData.review, "new", newValue);
-    oldData.review = newValue; // reseting new value. newValue
+    // oldData.review.push(newValue); // reseting new value. newValue
+    // oldData.review
+
+    let tmpValue = 0;
+    let tmpArray = new Array();
+
+    if (newValue === 1) {
+        tmpArray = [...oldData.review];
+        tmpValue = oldData.review[0] + 1;
+        tmpArray[0] = tmpValue;
+        oldData.review = [...tmpArray];
+
+    } else if (newValue === 2) {
+        tmpArray = [...oldData.review];
+        tmpValue = oldData.review[1] + 1;
+        tmpArray[1] = tmpValue;
+        oldData.review = [...tmpArray];
+
+    } else if (newValue === 3) {
+        tmpArray = [...oldData.review];
+        tmpValue = oldData.review[2] + 1;
+        tmpArray[2] = tmpValue;
+        oldData.review = [...tmpArray];
+
+    } else if (newValue === 4) {
+        tmpArray = [...oldData.review];
+        tmpValue = oldData.review[3] + 1;
+        tmpArray[3] = tmpValue;
+        oldData.review = [...tmpArray];
+
+    } else if (newValue === 5) {
+        tmpArray = [...oldData.review];
+        tmpValue = oldData.review[4] + 1;
+        tmpArray[4] = tmpValue;
+        oldData.review = [...tmpArray];
+
+    } 
+
+
+    console.log(oldData.review);
+    // if (newValue >-1 && newValue < 6) {
+    //     oldData.review.push(newValue);
+
+    // }
+    // console.log(oldData.review);
 
 
 tmpObj = {
@@ -217,8 +312,9 @@ tmpObj = {
             "image": oldData.image,
             "calories": oldData.calories,
             "review": oldData.review,
-            "comment": oldData.review
+            "comment": oldData.comment 
           }
+       
 
 const reqObj = {
             headers: {'Content-Type': "application/json"},
