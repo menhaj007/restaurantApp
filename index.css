@@ -3,8 +3,9 @@
 body {
     background-color: #f5f5f5;
     background-image:
-    linear-gradient(to bottom, rgba(238, 123, 94, 0.4), rgba(11, 4, 51, 0.5)), url("lily-banse--YHSwy6uqvk-unsplash.jpg");
-    background-size: 70%;
+    linear-gradient(to bottom, rgba(238, 140, 94, 0.5), rgba(11, 4, 51, 0.8)), url("lily-banse--YHSwy6uqvk-unsplash.jpg");
+    background-size: 60%;
+    /* background-size: contain; */
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
@@ -37,8 +38,8 @@ body {
     display: flex;
     justify-content: center;
     align-items:center;
-    height: 15rem;
-    width: 15rem;
+    height: 11rem;
+    width: 11rem;
     background-image: url("lidye-1Shk_PkNkNw-unsplash.jpg");
     background-size: contain;
     /* background-color: rgb(4, 12, 90); */
@@ -121,7 +122,7 @@ body {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(187, 184, 184);
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 2rem;
@@ -131,6 +132,7 @@ body {
     width: 100%;
     background-color: #4CAF50;
     color: rgb(168, 168, 168);
+    
     padding: 14px 20px;
     margin: 8px 0;
     border: 10px;
@@ -143,6 +145,13 @@ body {
   }
 
 
+  
+  .test {
+    padding:1px;
+    border:3px solid #021a40;
+    background-color:rgb(27, 2, 54);
+    /* opacity: 0.5; */
+  }
 
   .test {
     width: 300px;
@@ -153,7 +162,7 @@ body {
   
   .test:hover {
     width: 600px;
-    height: 600px;
+    height: 550px;
   }
 form {
   margin: 20px;
